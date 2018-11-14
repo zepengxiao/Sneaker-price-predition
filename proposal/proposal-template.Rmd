@@ -1,0 +1,308 @@
+---
+title: "A Descriptive Title Here: Be Creative"
+subtitle: "STAT 385 FA2018 - Team Rebel"
+abstract: |
+          | This is the abstract. It should probably be at most about five 
+          | sentences. The abstract should briefly explain what you are doing,
+          | why you are doing it, and what you hope to gain from it.
+          | Reading only the abstract, the reader should have a good idea 
+          | about what to expect from the rest of the document.
+date: "November 13, 2018"
+author:
+  - Leia Organa
+  - Han Solo
+  - Luke Skywalker
+  - Lando Calrissian
+bibliography: bibliography.bib
+output: 
+  bookdown::pdf_document2
+---
+
+```{r set-options, include = FALSE}
+# Sets default chunk options
+knitr::opts_chunk$set(
+  # Figures/Images will be centered
+  fig.align = "center", 
+  # Code will not be displayed unless `echo = TRUE` is set for a chunk
+  echo = FALSE,
+  # Messages are suppressed
+  message = FALSE,
+  # Warnings are suppressed
+  warning = FALSE
+)
+```
+
+```{r install-and-load-packages, include = FALSE}
+# All packages needed should be loaded in this chunk
+pkg_list = c('knitr', 'kableExtra', 'magrittr')
+
+# Determine what packages are NOT installed already.
+to_install_pkgs = pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+
+# Install the missing packages
+if(length(to_install_pkgs)) {
+  install.packages(to_install_pkgs, repos = "https://cloud.r-project.org")
+}
+
+# Load all packages
+sapply(pkg_list, require, character.only = TRUE)
+```
+
+<!-- Force a new page -->
+\newpage
+
+# Instructions
+
+This document will walk you through some of the necessary steps of formatting
+your report. Do not mistake the length of this document as an example of the 
+length of a proper report. Length is not important. Communicating your idea 
+in a concise but complete manner is important. The goal of the proposal is to capture details found in Figure \@ref(fig:data-science-workflow).
+
+```{r data-science-workflow, out.width = "250px", fig.cap = "Data science workflow emphasized in R4DS. The photo has been reduced using chunk size options.", fig.pos = 'H'}
+knitr::include_graphics("images/data-science.png")
+```
+
+
+# Introduction
+
+The **introduction** section provides a preview of the project's focus. Within
+this section, provide an overview on the selected topic for the consumption of a
+manager. In essence, the manager must be able to understand what the project is
+and why they should support the endeavor. You are allowed to make the assumption
+that the manager is knowledgeable in base R concepts. Make sure to answer the
+following questions:
+
+- What problem or topic are you addressing?
+- Why is it interesting or important? In particular, what evidence supports this   conclusion?
+- Cite papers or reputable sources that back up this claim. (You may want to find - material using Google Scholar.)
+- Where did the problem or topic come from?
+- What is your idea for addressing the problem or topic?
+- How does your idea match with the course’s focus on statistical programming?
+
+Consider adding subsections in this section. For example, consider adding
+a **data** subsection. The data subsection would describe your data. 
+What is it? Where did it come from? How will it be useful in answering your problem?
+Provide references to information about the data, but explain enough that your
+reader does not need to utilize them.
+
+Keep in mind, you may use or construct any dataset of your choice under two
+conditions:
+
+1. there is a minimum of **500** observations and **10** variables;
+2. data is _not_ from either UC Irvine Machine Learning Repository or Kaggle,
+   _not_ used as a data set in the course, and _not_ found in textbooks.
+   
+The dataset may be relevant to research outside of this course, another field,
+or some other interest of the groups. If you have any questions about whether 
+your data is appropriate, do not hesitate to ask. If you plan to use data from
+either a research project or current job be sure to gain permission from the
+data controller.
+
+# Related Work
+
+The **Related Work** section must provide an overview of pre-existing solutions.
+In essence, please credit those who enabled you to consider embarking on this 
+project, or as Issac Newton in [a letter to Robert Hooke on 15 February 1676](http://www.newtonproject.ox.ac.uk/view/texts/normalized/OTHE00101) more
+aptly put it:
+
+> If I have seen further it is by standing on the shoulders of Giants.
+
+Address the following questions:
+
+- What other ideas have been attempted?
+- Why is your team's idea original compared to prior work?
+
+# Methods
+
+The **methods** section should discuss how you plan to solve your problem.
+The overall details of the project including any preliminary work. In 
+particular, the implementation details behind the approach should be explained
+at length here. The more details you can provide, the better feedback your
+group can receive. As a result, the section serves as a roadmap of what features
+are going to be developed and any external dependencies that are required. 
+**The majority of your code should be _suppressed_ from the displaying in this
+section**. Please refer to code and figures placed in the appendix. The latter can be referenced using: 
+
+```
+Figure \@ref(fig:code-chunk-name-here).
+```
+
+For example, the figure of the data science workflow is accessible via
+Figure \@ref(fig:data-science-workflow).
+
+To satisfy this section, provide detailed responses for the following:
+
+- What packages will you use in your implementation?
+- What code will the group need to write for the project?
+- Provide low-fidelity prototypes (e.g. _sketches_ on paper) in the **Appendix** of:
+    - Visualisations
+        - What kinds of graphs will you use?
+        - Label axes, provide a title, and mention any interactivity.
+    - Interface
+        - All projects need a Shiny Application.
+        - Sketch how a user will work with the shiny application.
+- What have you done or learned so far for the project? 
+
+We are primarily wanting to ensure that your project has met the criterion
+of the data science pipeline. In essence, we want to see evidence that your
+project has:
+
+- Reading data into _R_ or accessing data via an API.
+- Data transformations (e.g. Tidying ([`tidyr`](http://tidyr.tidyverse.org/)), Summarizing ([`dplyr`](http://dplyr.tidyverse.org/)), et cetera.)
+- Data visualization (e.g. [`ggplot2`](http://ggplot2.tidyverse.org/),
+  [`plotly`](https://plot.ly/ggplot2/), [`gganimate`](https://github.com/dgrtwo/gganimate))
+- R functions either in external packages or included in a new _R_ package
+- Interactive Interface (e.g. [`shiny`](https://shiny.rstudio.com/))
+- Reproducibility
+
+# Feasibility
+
+The **Feasibility** section is meant to act as a way to reflect upon the proposal.
+Generally speaking, there will be three weeks of heavy development time afforded
+to the group. Building a detailed ecosystem or heavily scripting in a different
+language will likely not lead your team to success. Hence, please provide
+a project management overview of *who* on your team will be doing *what* and *when*
+by answering:
+
+- Is this project able to be completed before the end of the semester?
+- What steps must occur to complete the project before the end of the semester?
+- What is the work plan to accomplish the necessary tasks before the end of the
+  semester?
+  - Specify who is doing what and when.
+  - Consider making a [Gantt chart](https://en.wikipedia.org/wiki/Gantt_chart)
+    to highlight each stage of the project.
+
+# Conclusion
+
+The **Conclusion** section provides a summary of the entire proposal. This acts
+as the final paragraph that can be used to justify the work being proposed.
+In general, this means you should make one last push to identify the problem,
+potential solution, and its novelty.
+
+If a group's project is well written, uses thoughtful and creative approaches,
+and is sufficiently interesting you may be asked to have your work "published"
+as an example for future students. **All group members will have to agree to
+publication.** You may also be asked to make edits before publication, but you 
+should be sure to **proofread** and **spellcheck** your work before your
+initial submission.
+
+\newpage
+
+# Appendix
+
+The **Appendix** section contains figures, sample data, and other miscellaneous
+entries. Generally, this sketch seeks to contain all of your _planning_ information.
+
+- Provide the sketches of visualisations and the shiny application.
+- Provide an overview on the desired functions.
+    - What is a function's input? Output? How are functions related to each other.
+    - For example, `read_data("hospital_data.csv")` must be called before `tidy_hospital()`, et cetera.
+- Provide a sample of the data set you intend to use (~10 observations).
+
+If you used previous code chunks within the document, this information can
+be dynamically retrieved and embedded.
+
+```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+```
+
+```{r hitters-data}
+kable(
+  head(mtcars, 20),
+  format = "latex",
+  caption = "This is an example of a table in the Appendix. Notice that it is way too big, and has way too much information. We use the $\\texttt{kableExtra}$ package to shrink it down, but even then, no one would actually read this table.",
+  booktabs = TRUE
+) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+```{r wage-data}
+kable(
+  head(mtcars, 20),
+  format = "latex",
+  caption = "This is another example of a ridiculous table. Notice that it is automatically numbered.",
+  booktabs = TRUE
+) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+```
+
+
+## Formatting Notes
+
+
+### `R` Code and `rmarkdown`
+
+An important part of the report is communicating results in a well-formatted manner. This template document should help a lot with that task. Some thoughts on using `R` and `rmarkdown`:
+
+- Chunks are set to not echo by default in this document.
+- Consider naming your chunks. This will be necessary for referencing chunks 
+  that create tables or figures.
+- One chunk per table or figure!
+- Tables should be created using `knitr::kable()`.
+- Consider using `kableExtra()` for better presentation of tables. (Examples in this document.)
+- Caption all figures and tables. (Examples in this document.)
+- Use the `img/` sub-directory for any external images.
+- Use the `data/` sub-directory for any external data.
+
+### LaTeX
+
+While you will not directly work with LaTeX, you may wish to have some details
+on working with TeX can be found in 
+[this guide by UIUC Mathematics Professor A.J. Hildebrand ](https://faculty.math.illinois.edu/~hildebr/tex/latex-start.html).
+
+With `rmarkdown`, LaTeX can be used inline, like this, $a ^ 2 + b ^ 2 = c ^ 2$,
+or using display mode,
+
+$$
+\mathbb{E}_{X, Y} \left[ (Y - f(X)) ^ 2 \right] = \mathbb{E}_{X} \mathbb{E}_{Y \mid X} \left[ ( Y - f(X) ) ^ 2 \mid X = x \right]
+$$
+
+You **are** required to use BibTeX for references. With BibTeX, we could 
+reference the `rmarkdown` paper [@allaire2015rmarkdown] or the tidy data paper.
+[@wickham2014tidy] Some details can be found in the 
+[`bookdown` book](https://bookdown.org/yihui/bookdown/citations.html). Also,
+hint, [Google Scholar](https://scholar.google.com/) makes obtaining BibTeX 
+reference extremely easy. For more details, see the next section...
+
+<!-- Force a new page for references -->
+\newpage
+
+# References
+
+The **References** section acts as a bibliography for all papers referenced
+in the **Introduction**, **Related Works**, and **Method** sections. The
+references should be formated in Chicago author-date format, which is the
+default for RMarkdown.
+
+* Provide a list (5+) of papers or items you have read to write this proposal. 
+* Please list all _R_ packages or software referenced.
+
+To acquire software citation information, _R_ has a built-in command
+that creates a BibTex and in-line text citation. To generate the citation
+of an installed _R_ package, type:
+
+```r
+# In R
+citation(package="pkg_name")
+```
+
+For example, to cite `dplyr`, one would generate the BibTex entry from:
+
+```r
+citation(package="dplyr")
+```
+
+```latex
+@Manual{dplyr:2018,
+    title = {dplyr: A Grammar of Data Manipulation},
+    author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller},
+    year = {2018},
+    note = {R package version 0.7.7},
+    url = {https://CRAN.R-project.org/package=dplyr},
+}
+```
+
+Note, we added a "name" to the autogenerated citation of `dplyr:2018`. Using
+this name, we can reference the work within the paper via [@dplyr:2018] or @dplyr:2018.
+
+<!-- Remove the newpage break when the above text is no longer useful -->
+\newpage
