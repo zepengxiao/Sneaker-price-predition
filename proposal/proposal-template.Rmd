@@ -1,18 +1,15 @@
 ---
-title: "A Descriptive Title Here: Be Creative"
-subtitle: "STAT 385 FA2018 - Team Rebel"
+title: "Sneakerhead Gear"
+subtitle: "STAT 385 FA2018 - Team XSWL"
 abstract: |
-          | This is the abstract. It should probably be at most about five 
-          | sentences. The abstract should briefly explain what you are doing,
-          | why you are doing it, and what you hope to gain from it.
-          | Reading only the abstract, the reader should have a good idea 
-          | about what to expect from the rest of the document.
-date: "November 13, 2018"
+          | This project aims to design a shiny-powered app to address an underlying difficulty of many sneaker lovers & collectors, which is to buy or trade sneakers at reasonable prices. The goal is to scrape real-time price information from StockX, one of the most popular stock market for sneakers, and produce visualizations as well as give predictions for the prices of popular items by incorporating statistical computing methods. The motivation behind this project is a shared experience among the group members about previous hardships involved with trading sneakers, and a strong desire to work with web scrapping and to practice statistical methods with R. The expected gain is hence as stated above.
+          
+          
+date: "November 19, 2018"
 author:
-  - Leia Organa
-  - Han Solo
-  - Luke Skywalker
-  - Lando Calrissian
+  - Ziwei Liu
+  - Zepeng Xiao
+  - Yuquan Zheng
 bibliography: bibliography.bib
 output: 
   bookdown::pdf_document2
@@ -51,32 +48,19 @@ sapply(pkg_list, require, character.only = TRUE)
 <!-- Force a new page -->
 \newpage
 
-# Instructions
-
-This document will walk you through some of the necessary steps of formatting
-your report. Do not mistake the length of this document as an example of the 
-length of a proper report. Length is not important. Communicating your idea 
-in a concise but complete manner is important. The goal of the proposal is to capture details found in Figure \@ref(fig:data-science-workflow).
-
-```{r data-science-workflow, out.width = "250px", fig.cap = "Data science workflow emphasized in R4DS. The photo has been reduced using chunk size options.", fig.pos = 'H'}
-knitr::include_graphics("images/data-science.png")
-```
-
-
 # Introduction
 
-The **introduction** section provides a preview of the project's focus. Within
-this section, provide an overview on the selected topic for the consumption of a
-manager. In essence, the manager must be able to understand what the project is
-and why they should support the endeavor. You are allowed to make the assumption
-that the manager is knowledgeable in base R concepts. Make sure to answer the
-following questions:
-
 - What problem or topic are you addressing?
-- Why is it interesting or important? In particular, what evidence supports this   conclusion?
+
+
+
+- Why is it interesting or important? In particular, what evidence supports this conclusion?
 - Cite papers or reputable sources that back up this claim. (You may want to find - material using Google Scholar.)
+
 - Where did the problem or topic come from?
+
 - What is your idea for addressing the problem or topic?
+
 - How does your idea match with the course’s focus on statistical programming?
 
 Consider adding subsections in this section. For example, consider adding
@@ -203,6 +187,7 @@ If you used previous code chunks within the document, this information can
 be dynamically retrieved and embedded.
 
 ```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
+
 ```
 
 ```{r hitters-data}
