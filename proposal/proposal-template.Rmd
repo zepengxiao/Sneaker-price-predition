@@ -63,14 +63,11 @@ What is it? Where did it come from? How will it be useful in answering your prob
 
 # Related Work
 
-Address the following questions:
+Our group has decided to do web scrapping from the begining, so it was only the matter of choosing a webpage that is easy to scrape from and which kind of analysis should we perform. Later we discovered our common interest in sneaker shoes, so that we decided to scrape StockX. As for the detailed contents, we decided to do visualizations for historical prices, and then we discovered a related study which can be accessed at:
 
-- What other ideas have been attempted?
+[Scraping StockX: Adidas Yeezy Resell Analysis.](https://nycdatascience.com/blog/student-works/scraping-stockx-adidas-yeezy-resell-analysis/)
 
-
-
-- Why is your team's idea original compared to prior work?
-
+It offered a lot of ideas pertaining to scrapping and data analysis for a certain type of sneaker shoes. In ensuring originality, we decided to incorporate time-series analysis in order to give prediction about shoes prices. There have been similar analysis project focused on forecasting stock prices, and we think our originality lies in bringing this idea to the market of sneaker shoes.
 
 
 # Methods
@@ -88,13 +85,15 @@ To satisfy this section, provide detailed responses for the following:
 
 - What packages will you use in your implementation?
 
-The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended prediction method is to perform time-series analysis through fitting ARIMA models (`arima` function) that is available in base R. Hence the packages that need to be specifically loaded are:
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended prediction method is to perform time-series analysis through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
 
 1. `ggplot2` for visualizations
 
 1. `rvest` for web scrapping
 
 1. `tidyr` for data cleaning
+
+1. `regex` for string manipulation
 
 - What code will the group need to write for the project?
 
@@ -113,20 +112,9 @@ The main body of this project can be broken into three parts: construction of da
 
 # Feasibility
 
-The **Feasibility** section is meant to act as a way to reflect upon the proposal.
-Generally speaking, there will be three weeks of heavy development time afforded
-to the group. Building a detailed ecosystem or heavily scripting in a different
-language will likely not lead your team to success. Hence, please provide
-a project management overview of *who* on your team will be doing *what* and *when*
-by answering:
+We originally wanted to enable users to select any type of sneakers from any brands and give price predictions and visualizations, but then we realized to enable searching and then scrapping the corresponding data from different webpages requires a higher level of web scrapping technique, which takes time to master. We then decided that for this project, we would allow 5 to 10 pairs of shoes to choose from, and the current web scrapping techniques would still ensure that the information is real-time. Therefore we believe this project can be finished before the end of semester, as we can roughly send one week constructing data and building & testing UI and server, and another one to two week implementing time-series analysis and compile reports and video demo. To make the project goes, our group has decided to meet at least twice a week and take advantages of the office hours.
 
-- Is this project able to be completed before the end of the semester?
-- What steps must occur to complete the project before the end of the semester?
-- What is the work plan to accomplish the necessary tasks before the end of the
-  semester?
-  - Specify who is doing what and when.
-  - Consider making a [Gantt chart](https://en.wikipedia.org/wiki/Gantt_chart)
-    to highlight each stage of the project.
+For tasks split, Ziwei Liu will undertake the part of fitting ARIMA models on getting time-series analysis works, while Zepeng Xiao will take charge of data processing and data cleaning after scrapping. Finally, Yuquan Zheng will be in charge of app design and report writing.
 
 # Conclusion
 
@@ -135,12 +123,7 @@ as the final paragraph that can be used to justify the work being proposed.
 In general, this means you should make one last push to identify the problem,
 potential solution, and its novelty.
 
-If a group's project is well written, uses thoughtful and creative approaches,
-and is sufficiently interesting you may be asked to have your work "published"
-as an example for future students. **All group members will have to agree to
-publication.** You may also be asked to make edits before publication, but you 
-should be sure to **proofread** and **spellcheck** your work before your
-initial submission.
+
 
 \newpage
 
