@@ -115,18 +115,17 @@ In summary, this project aims to offer a gear for sneaker lovers to buy or sell 
 
 # Appendix
 
-The **Appendix** section contains figures, sample data, and other miscellaneous
-entries. Generally, this sketch seeks to contain all of your _planning_ information.
-
 - Provide the sketches of visualisations and the shiny application.
+
+```{r shiny demo, out.width = "300px", echo=FALSE}
+knitr::include_graphics("images/shinydemo.jpg")
+```
 
 - Provide an overview on the desired functions.
     - What is a function's input? Output? How are functions related to each other.
-    - For example, `read_data("hospital_data.csv")` must be called before `tidy_hospital()`, et cetera.
+    
+    
 - Provide a sample of the data set you intend to use (~10 observations).
-
-If you used previous code chunks within the document, this information can
-be dynamically retrieved and embedded.
 
 
 ## Formatting Notes
