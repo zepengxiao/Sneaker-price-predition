@@ -85,7 +85,7 @@ To satisfy this section, provide detailed responses for the following:
 
 - What packages will you use in your implementation?
 
-The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended prediction method is to perform time-series analysis through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended action is to perform time-series analysis through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
 
 1. `ggplot2` for visualizations
 
@@ -93,36 +93,22 @@ The main body of this project can be broken into three parts: construction of da
 
 1. `tidyr` for data cleaning
 
-1. `regex` for string manipulation
+1. `stringr` for string manipulation
 
-- What code will the group need to write for the project?
+The group will write codes to first complete web scrapping, then potentially split or combine some of the variables for data cleaning. In order to fulfill the requirement for the number of attributes, there is also the need to merge data using SQL or basic R. To provide prediction of prices would need hands-on experience with `arima`, and the plotting of line graphs demonstrating price trends requires using `ggplot2`. Finally, codes are needed for building a `shiny` application.
 
-
-
-- Provide low-fidelity prototypes (e.g. _sketches_ on paper) in the **Appendix** of:
-    - Visualisations
-        - What kinds of graphs will you use?
-        - Label axes, provide a title, and mention any interactivity.
-    - Interface
-        - All projects need a Shiny Application.
-        - Sketch how a user will work with the shiny application.
-        
-- What have you done or learned so far for the project? 
+The main source of practices on this project has been from Homework 8 and all previous homeworks as well as practices of statistical methods in other stats courses taken by the group members.
 
 
 # Feasibility
 
 We originally wanted to enable users to select any type of sneakers from any brands and give price predictions and visualizations, but then we realized to enable searching and then scrapping the corresponding data from different webpages requires a higher level of web scrapping technique, which takes time to master. We then decided that for this project, we would allow 5 to 10 pairs of shoes to choose from, and the current web scrapping techniques would still ensure that the information is real-time. Therefore we believe this project can be finished before the end of semester, as we can roughly send one week constructing data and building & testing UI and server, and another one to two week implementing time-series analysis and compile reports and video demo. To make the project goes, our group has decided to meet at least twice a week and take advantages of the office hours.
 
-For tasks split, Ziwei Liu will undertake the part of fitting ARIMA models on getting time-series analysis works, while Zepeng Xiao will take charge of data processing and data cleaning after scrapping. Finally, Yuquan Zheng will be in charge of app design and report writing.
+As for tasks split, Ziwei Liu will undertake the part of fitting ARIMA models on getting time-series analysis works, while Zepeng Xiao will take charge of data processing and data cleaning after scrapping. Finally, Yuquan Zheng will be in charge of app design and report writing.
 
 # Conclusion
 
-The **Conclusion** section provides a summary of the entire proposal. This acts
-as the final paragraph that can be used to justify the work being proposed.
-In general, this means you should make one last push to identify the problem,
-potential solution, and its novelty.
-
+In summary, this project aims to offer a gear for sneaker lovers to buy or sell their sneakers at desired prices, eased by visualization and powered by data scrapped from StockX. It resolves to a certain degree the uncertainty in market prices faced by sneaker traders when using StockX. The novelty will arise from the attempt to apply time-series analysis to predict shoes prices.
 
 
 \newpage
@@ -133,6 +119,7 @@ The **Appendix** section contains figures, sample data, and other miscellaneous
 entries. Generally, this sketch seeks to contain all of your _planning_ information.
 
 - Provide the sketches of visualisations and the shiny application.
+
 - Provide an overview on the desired functions.
     - What is a function's input? Output? How are functions related to each other.
     - For example, `read_data("hospital_data.csv")` must be called before `tidy_hospital()`, et cetera.
@@ -141,60 +128,8 @@ entries. Generally, this sketch seeks to contain all of your _planning_ informat
 If you used previous code chunks within the document, this information can
 be dynamically retrieved and embedded.
 
-```{r, ref.label=knitr::all_labels(),echo=TRUE,eval=FALSE}
-
-```
-
-```{r hitters-data}
-kable(
-  head(mtcars, 20),
-  format = "latex",
-  caption = "This is an example of a table in the Appendix. Notice that it is way too big, and has way too much information. We use the $\\texttt{kableExtra}$ package to shrink it down, but even then, no one would actually read this table.",
-  booktabs = TRUE
-) %>%
-  kable_styling(latex_options = c("striped", "scale_down"))
-```
-
-```{r wage-data}
-kable(
-  head(mtcars, 20),
-  format = "latex",
-  caption = "This is another example of a ridiculous table. Notice that it is automatically numbered.",
-  booktabs = TRUE
-) %>%
-  kable_styling(latex_options = c("striped", "scale_down"))
-```
-
 
 ## Formatting Notes
-
-
-### `R` Code and `rmarkdown`
-
-An important part of the report is communicating results in a well-formatted manner. This template document should help a lot with that task. Some thoughts on using `R` and `rmarkdown`:
-
-- Chunks are set to not echo by default in this document.
-- Consider naming your chunks. This will be necessary for referencing chunks 
-  that create tables or figures.
-- One chunk per table or figure!
-- Tables should be created using `knitr::kable()`.
-- Consider using `kableExtra()` for better presentation of tables. (Examples in this document.)
-- Caption all figures and tables. (Examples in this document.)
-- Use the `img/` sub-directory for any external images.
-- Use the `data/` sub-directory for any external data.
-
-### LaTeX
-
-While you will not directly work with LaTeX, you may wish to have some details
-on working with TeX can be found in 
-[this guide by UIUC Mathematics Professor A.J. Hildebrand ](https://faculty.math.illinois.edu/~hildebr/tex/latex-start.html).
-
-With `rmarkdown`, LaTeX can be used inline, like this, $a ^ 2 + b ^ 2 = c ^ 2$,
-or using display mode,
-
-$$
-\mathbb{E}_{X, Y} \left[ (Y - f(X)) ^ 2 \right] = \mathbb{E}_{X} \mathbb{E}_{Y \mid X} \left[ ( Y - f(X) ) ^ 2 \mid X = x \right]
-$$
 
 You **are** required to use BibTeX for references. With BibTeX, we could 
 reference the `rmarkdown` paper [@allaire2015rmarkdown] or the tidy data paper.
