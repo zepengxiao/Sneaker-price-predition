@@ -87,13 +87,13 @@ To satisfy this section, provide detailed responses for the following:
 
 The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended action is to perform time-series analysis through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
 
-1. `ggplot2` for visualizations
+1. ggplot2 @ggplot2:2016 for visualizations
 
-1. `rvest` for web scrapping
+1. rvest @rvest:2016 for web scrapping
 
-1. `tidyr` for data cleaning
+1. tidyr @tidyr:2018 for data cleaning
 
-1. `stringr` for string manipulation
+1. stringr @stringr:2018 for string manipulation
 
 The group will write codes to first complete web scrapping, then potentially split or combine some of the variables for data cleaning. In order to fulfill the requirement for the number of attributes, there is also the need to merge data using SQL or basic R. To provide prediction of prices would need hands-on experience with `arima`, and the plotting of line graphs demonstrating price trends requires using `ggplot2`. Finally, codes are needed for building a `shiny` application.
 
