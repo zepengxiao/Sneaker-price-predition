@@ -50,7 +50,7 @@ sapply(pkg_list, require, character.only = TRUE)
 
 # Introduction
 
-In this project, we are dealing with predicting the market for sneaker shoes. More specifically, we are interested in investigating the price variation in a time period of any given brand of shoes, and how does that help predict future trends. In recent years, the featuring of fashionably designed sneaker shoes has been heated remarkably on a global scale. SportsOneSource (2015) presents that the international sneaker market has reached about $55 billion (as cited in Weinswig, 2016). Moreover, StockX is a marketplace where people can buy or sell sneakers in real time. According to Matt Powell, "the annual market for sneaker reselling has grown to somewhere between \$ 200 million and \$ 500 million" (as cited in Noskova, 2016). If we can successfully predict the reselling prices for both buyers and sellers, then it can greatly benefit the cast sneaker lovers.
+In this project, we are dealing with predicting the market for sneaker shoes. More specifically, we are interested in investigating the price variation in a time period of any given brand of shoes, and how does that help predict future trends. In recent years, the featuring of fashionably designed sneaker shoes has been heated remarkably on a global scale. SportsOneSource (2015) presents that the international sneaker market has reached about $55 billion [as cited in @globalstat]. Moreover, StockX is a marketplace where people can buy or sell sneakers in real time [@stockXintroduction]. According to Matt Powell, "the annual market for sneaker reselling has grown to somewhere between \$ 200 million and \$ 500 million" [as cited in @sneakerhead]. If we can successfully predict the reselling prices for both buyers and sellers, then it can greatly benefit the cast sneaker lovers.
 
 One of the problems in trading on StockX is similar to that of traditional stock trades: the variation of the market prices is stochastic, therefore it is hard to guarantee that people can maximize their benefits. Our idea is to scrape data from stockX, namely the bid/ask prices and other attributes for a given type of sneaker shoes in a period of time, which is available as each of transactions will be recorded. We believe that by using R's `ggplot` and `shiny` packages, we can present the price information in a simpler and more user-friendly way. Further, by taking advantages of R's statistical computing and data manipulation abilities, we can try to predict how the price of a particular sneaker shoe will change in the near future and also transform that into graphics, hence practical for potential users, in the sense that buyers can buy shoes at lower prices and sellers can sell their sneakers at their desired price.
 
@@ -65,7 +65,7 @@ What is it? Where did it come from? How will it be useful in answering your prob
 
 Our group has decided to do web scrapping from the begining, so it was only the matter of choosing a webpage that is easy to scrape from and which kind of analysis should we perform. Later we discovered our common interest in sneaker shoes, so that we decided to scrape StockX. As for the detailed contents, we decided to do visualizations for historical prices, and then we discovered a related study which can be accessed at:
 
-[Scraping StockX: Adidas Yeezy Resell Analysis.](https://nycdatascience.com/blog/student-works/scraping-stockx-adidas-yeezy-resell-analysis/)
+[Scraping StockX: Adidas Yeezy Resell Analysis.](https://nycdatascience.com/blog/student-works/scraping-stockx-adidas-yeezy-resell-analysis/) [@ScrapingStockX:2016]
 
 It offered a lot of ideas pertaining to scrapping and data analysis for a certain type of sneaker shoes. In ensuring originality, we decided to incorporate time-series analysis in order to give prediction about shoes prices. There have been similar analysis project focused on forecasting stock prices, and we think our originality lies in bringing this idea to the market of sneaker shoes.
 
@@ -85,7 +85,7 @@ To satisfy this section, provide detailed responses for the following:
 
 - What packages will you use in your implementation?
 
-The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended action is to perform time-series analysis through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended action is to perform time-series analysis (@ARIMAModels) through fitting ARIMA models (with built-in function `arima`) that is available in base R. The packages that need to be specifically loaded are:
 
 1. ggplot2 @ggplot2:2016 for visualizations
 
@@ -143,40 +143,3 @@ reference extremely easy. For more details, see the next section...
 
 # References
 
-The **References** section acts as a bibliography for all papers referenced
-in the **Introduction**, **Related Works**, and **Method** sections. The
-references should be formated in Chicago author-date format, which is the
-default for RMarkdown.
-
-* Provide a list (5+) of papers or items you have read to write this proposal. 
-* Please list all _R_ packages or software referenced.
-
-To acquire software citation information, _R_ has a built-in command
-that creates a BibTex and in-line text citation. To generate the citation
-of an installed _R_ package, type:
-
-```r
-# In R
-citation(package="pkg_name")
-```
-
-For example, to cite `dplyr`, one would generate the BibTex entry from:
-
-```r
-citation(package="dplyr")
-```
-
-```latex
-@Manual{dplyr:2018,
-    title = {dplyr: A Grammar of Data Manipulation},
-    author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller},
-    year = {2018},
-    note = {R package version 0.7.7},
-    url = {https://CRAN.R-project.org/package=dplyr},
-}
-```
-
-Note, we added a "name" to the autogenerated citation of `dplyr:2018`. Using this name, we can reference the work within the paper via [@dplyr:2018] or @dplyr:2018.
-
-<!-- Remove the newpage break when the above text is no longer useful -->
-\newpage
