@@ -2,7 +2,7 @@
 title: "Sneakerhead Gear"
 subtitle: "STAT 385 FA2018 - Team XSWL"
 abstract: |
-          | This project aims to design a shiny-powered app to address an underlying difficulty of many sneaker lovers & collectors, which is to buy or trade sneakers at reasonable prices. The goal is to scrape real-time price information from StockX, one of the most popular stock market for sneakers, and produce visualizations as well as give predictions for the prices of popular items by incorporating statistical computing methods. The motivation behind this project is a shared experience among the group members about previous hardships involved with trading sneakers, and a strong desire to work with web scrapping and to practice statistical methods with R. The expected gain is hence as stated above.
+          | This project aims to design a shiny-powered app to address an underlying difficulty of many sneaker shoes lovers & collectors, which is to buy or trade sneakers at reasonable prices. The goal is to scrape real-time price information from StockX, one of the most popular stock market for sneakers, and produce visualizations as well as give predictions for the prices of popular items by incorporating statistical computing methods. The motivation behind this project is a shared experience among the group members about previous hardships involved with trading sneaker shoes, and a strong desire to work with web scrapping and to practice statistical methods with R. The expected gain is hence as stated above.
           
           
 date: "November 19, 2018"
@@ -50,62 +50,32 @@ sapply(pkg_list, require, character.only = TRUE)
 
 # Introduction
 
-- What problem or topic are you addressing?
+In this project, we are dealing with predicting the market for sneaker shoes. More specifically, we are interested in investigating the price variation in a time period of any given brand of shoes, and how does that help predict future trends. In recent years, the featuring of fashionably designed sneaker shoes has been heated remarkably on a global scale. SportsOneSource (2015) presents that the international sneaker market has reached about $55 billion (as cited in Weinswig, 2016). Moreover, StockX is a marketplace where people can buy or sell sneakers in real time. According to Matt Powell, "the annual market for sneaker reselling has grown to somewhere between \$ 200 million and \$ 500 million" (as cited in Noskova, 2016). If we can successfully predict the reselling prices for both buyers and sellers, then it can greatly benefit the cast sneaker lovers.
 
+One of the problems in trading on StockX is similar to that of traditional stock trades: the variation of the market prices is stochastic, therefore it is hard to guarantee that people can maximize their benefits. Our idea is to scrape data from stockX, namely the bid/ask prices and other attributes for a given type of sneaker shoes in a period of time, which is available as each of transactions will be recorded. We believe that by using R's `ggplot` and `shiny` packages, we can present the price information in a simpler and more user-friendly way. Further, by taking advantages of R's statistical computing and data manipulation abilities, we can try to predict how the price of a particular sneaker shoe will change in the near future and also transform that into graphics, hence practical for potential users, in the sense that buyers can buy shoes at lower prices and sellers can sell their sneakers at their desired price.
 
+In completing this project, we expect to practice with programming techbiques prevailing in R, and experience collaborative development to come up with analysis and behavioural suggestions based on data, all of which adhere to the general purposes of this course as stated in the syllabus.
 
-- Why is it interesting or important? In particular, what evidence supports this conclusion?
-- Cite papers or reputable sources that back up this claim. (You may want to find - material using Google Scholar.)
-
-- Where did the problem or topic come from?
-
-- What is your idea for addressing the problem or topic?
-
-- How does your idea match with the course’s focus on statistical programming?
-
-Consider adding subsections in this section. For example, consider adding
+- Consider adding subsections in this section. For example, consider adding
 a **data** subsection. The data subsection would describe your data. 
 What is it? Where did it come from? How will it be useful in answering your problem?
-Provide references to information about the data, but explain enough that your
-reader does not need to utilize them.
 
-Keep in mind, you may use or construct any dataset of your choice under two
-conditions:
-
-1. there is a minimum of **500** observations and **10** variables;
-2. data is _not_ from either UC Irvine Machine Learning Repository or Kaggle,
-   _not_ used as a data set in the course, and _not_ found in textbooks.
-   
-The dataset may be relevant to research outside of this course, another field,
-or some other interest of the groups. If you have any questions about whether 
-your data is appropriate, do not hesitate to ask. If you plan to use data from
-either a research project or current job be sure to gain permission from the
-data controller.
 
 # Related Work
-
-The **Related Work** section must provide an overview of pre-existing solutions.
-In essence, please credit those who enabled you to consider embarking on this 
-project, or as Issac Newton in [a letter to Robert Hooke on 15 February 1676](http://www.newtonproject.ox.ac.uk/view/texts/normalized/OTHE00101) more
-aptly put it:
-
-> If I have seen further it is by standing on the shoulders of Giants.
 
 Address the following questions:
 
 - What other ideas have been attempted?
+
+
+
 - Why is your team's idea original compared to prior work?
+
+
 
 # Methods
 
-The **methods** section should discuss how you plan to solve your problem.
-The overall details of the project including any preliminary work. In 
-particular, the implementation details behind the approach should be explained
-at length here. The more details you can provide, the better feedback your
-group can receive. As a result, the section serves as a roadmap of what features
-are going to be developed and any external dependencies that are required. 
-**The majority of your code should be _suppressed_ from the displaying in this
-section**. Please refer to code and figures placed in the appendix. The latter can be referenced using: 
+**The majority of your code should be _suppressed_ from the displaying in this section**. Please refer to code and figures placed in the appendix. The latter can be referenced using: 
 
 ```
 Figure \@ref(fig:code-chunk-name-here).
@@ -117,7 +87,19 @@ Figure \@ref(fig:data-science-workflow).
 To satisfy this section, provide detailed responses for the following:
 
 - What packages will you use in your implementation?
+
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with `shiny`, and barplot/line graph visualizations of price information and prediction results with `ggplot2`. Our intended prediction method is to perform time-series analysis through fitting ARIMA models (`arima` function) that is available in base R. Hence the packages that need to be specifically loaded are:
+
+1. `ggplot2` for visualizations
+
+1. `rvest` for web scrapping
+
+1. `tidyr` for data cleaning
+
 - What code will the group need to write for the project?
+
+
+
 - Provide low-fidelity prototypes (e.g. _sketches_ on paper) in the **Appendix** of:
     - Visualisations
         - What kinds of graphs will you use?
@@ -125,19 +107,9 @@ To satisfy this section, provide detailed responses for the following:
     - Interface
         - All projects need a Shiny Application.
         - Sketch how a user will work with the shiny application.
+        
 - What have you done or learned so far for the project? 
 
-We are primarily wanting to ensure that your project has met the criterion
-of the data science pipeline. In essence, we want to see evidence that your
-project has:
-
-- Reading data into _R_ or accessing data via an API.
-- Data transformations (e.g. Tidying ([`tidyr`](http://tidyr.tidyverse.org/)), Summarizing ([`dplyr`](http://dplyr.tidyverse.org/)), et cetera.)
-- Data visualization (e.g. [`ggplot2`](http://ggplot2.tidyverse.org/),
-  [`plotly`](https://plot.ly/ggplot2/), [`gganimate`](https://github.com/dgrtwo/gganimate))
-- R functions either in external packages or included in a new _R_ package
-- Interactive Interface (e.g. [`shiny`](https://shiny.rstudio.com/))
-- Reproducibility
 
 # Feasibility
 
@@ -286,8 +258,7 @@ citation(package="dplyr")
 }
 ```
 
-Note, we added a "name" to the autogenerated citation of `dplyr:2018`. Using
-this name, we can reference the work within the paper via [@dplyr:2018] or @dplyr:2018.
+Note, we added a "name" to the autogenerated citation of `dplyr:2018`. Using this name, we can reference the work within the paper via [@dplyr:2018] or @dplyr:2018.
 
 <!-- Remove the newpage break when the above text is no longer useful -->
 \newpage
