@@ -7,8 +7,8 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(RSelenium); library(XML); library(rvest)
+packages <- c("shiny", "RSelenium", "XML", "rvest", "stringr", "tidyr", "ggplot2")
+loaded <- lapply(packages, require, character.only = TRUE)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -24,8 +24,10 @@ ui <- fluidPage(
 
         mainPanel(
             tabsetPanel(
+                #change names later
                 tabPanel("Image", imageOutput("image")),
-                tabPanel("Table", tableOutput("table"))
+                tabPanel("Table", tableOutput("table")),
+                tabPanel("plot1", plotOutput("plot1"))
             )
         )
     )
@@ -41,7 +43,10 @@ server <- function(input, output) {
           direct(remDr)
           list = get_info(remDr)
           rD$server$stop()
-          return(list)
+          #return(list)
+          list2 = handle_table(list$table)
+          result = list(table = list2$table, image = list$image, graph1 = list2$graph1)
+          return(result)
         })
 
     output$table <- renderTable({
@@ -51,6 +56,10 @@ server <- function(input, output) {
     output$image <- renderImage({
       list(src = active_dataset()$image)
     }, deleteFile = TRUE)
+    
+    output$plot1 <- renderPlot({
+      active_dataset()$graph1
+    })
     
 }
 
