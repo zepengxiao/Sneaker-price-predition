@@ -12,7 +12,7 @@ data_for_visualization2 = function(name1, name2) {
   table1 = read.csv(paste0(name1, "_after.csv"))
   table2 = read.csv(paste0(name2, "_after.csv"))
   table_all = rbind(table1, table2)
-  g1 = ggplot(table_all) + geom_bar() + aes(x = Month, color = Name) + facet_wrap(~Size) + theme(panel.grid =element_blank())
+  g1 = ggplot(table_all) + geom_bar() + aes(x = Month, fill = Name) + facet_wrap(~Size) + theme(panel.grid =element_blank())
   result = list(g1 = g1)
   return (result)
 }
@@ -47,7 +47,7 @@ data_for_prediction = function(table1, size) {
   if (min == max) {
     minMessage = "There is no maximum price and minimum price in our prediction since sources prices are too few to make the prediction."
     g1 = ggplot(table_combined) + geom_line(aes(x = Date, y = Price)) + geom_line(aes(x = Date, y = Price, color = condition)) + theme(panel.grid =element_blank()) + ggtitle("Predicted Result") 
-    maxMessage = ""
+    maxMessage = "There is no maximum price and minimum price in our prediction since sources prices are too few to make the prediction."
   } else {
     minMessage = paste0("The minimum price of our prediction is ", round(min,2), ", which will be in ", minDate, ".")
     maxMessage = paste0("The maximum price of our prediction is ", round(max,2), ", which will be in ", maxDate, ".")

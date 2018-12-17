@@ -9,10 +9,12 @@
 
 library(shiny)
 library(RSelenium); library(XML); library(rvest)
+library(sqldf); library(stringr); library(tidyr)
+library(ggplot2);library(forecast)
 
 shoe.name <- c("Adidas NMD",
                "Adidas Yeezy 700",
-               "Adidas Yeezy Wave Runner",
+               "Adidas Yeezy Wave Runner 700",
                "Nike Air Force 1",
                "Nike Air Jordan 12 Master",
                "Nike Air Jordan 4 Travis", 
