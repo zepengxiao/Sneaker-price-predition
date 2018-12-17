@@ -34,23 +34,25 @@ library(RSelenium); library(XML); library(rvest)
 rD = rsDriver()
 remDr = rD$client
 
+remDr$navigate("https://stockx.com/adidas-yeezy-700-mauve")
+
 search = function(web, shoe, remDr) {
   remDr$navigate(web)
   wenElem = remDr$findElement(using = "id", "home-search")
   wenElem$sendKeysToElement(list(shoe))
-  Sys.sleep(5)
+  Sys.sleep(3)
 }
 
 direct = function(remDr) {
   target = remDr$findElement(using = "class", "list-item-content")
   target$clickElement() 
-  Sys.sleep(5)
+  Sys.sleep(3)
 }
 
 get_table = function(remDr) {
   table = remDr$findElement(using = "class", "latest-sales-container")
   doc = htmlParse(table$getPageSource()[[1]])
-  readHTMLTable(doc)
+  data.frame(readHTMLTable(doc))
 }
 
 get_picture = function(remDr) {
@@ -66,7 +68,7 @@ get_picture = function(remDr) {
 }
 
 # begin search
-search("https://stockx.com", "aj11", remDr)
+search("https://stockx.com", "aj1", remDr)
 direct(remDr)
 
 # get price
@@ -87,10 +89,193 @@ list = get_info(remDr)
 rD$server$stop()
 ```
 
-```{r handle table, warning=FALSE, message=FALSE, eval=TRUE}
+```{r }
+rD = rsDriver()
+remDr = rD$client
+remDr$navigate("https://stockx.com/air-jordan-4-retro-travis-scott-cactus-jack")
+
+button = remDr$findElement(using = "xpath", "//button[contains(text(),'Load More')]")
+
+replicate(50, {
+  button$clickElement()
+  Sys.sleep(3)
+})
+
+rD$server$stop()
+
+```
+
+```{r }
+library(httr)
+
+price = c()
+size = c()
+date = c()
+locamount = c()
+currency = c()
+
+i = 1
+
+while (i != 0) {
+  url = paste0(paste0("https://stockx.com/api/products/104e1c79-26a5-463d-86c4-88ca95ad2d3e/activity?state=480&currency=USD&limit=10&page=", i), "&sort=createdAt&order=DESC")
+  list = content(GET(url))$ProductActivity
+  if (length(list) == 0) break
+  else {
+    for (j in 1:length(list)) {
+      price = c(price, list[[j]]$amount)
+      size = c(size, list[[j]]$shoeSize)
+      date = c(date, list[[j]]$createdAt)
+      locamount = c(locamount, list[[j]]$localAmount)
+      currency = c(currency, list[[j]]$localCurrency)  
+    }
+  }
+  i = i + 1
+}
+
+AJ = data.frame(Date = date,
+                       Size = size,
+                       Price = price,
+                       Local_Amount = locamount,
+                       Currency = currency)
+
+write.csv(AJ, "Nike Jordan 4 Travis.csv")
+```
+
+
+```{r }
+#install.packages("sqldf")
+library(sqldf); library(stringr)
+AirPresto <- read.csv("AirPresto.csv")
+AirPresto = AirPresto[,-1]
+AirPresto$Date = str_extract(AirPresto$Date, "[0-9]{4}-[0-9]{2}-[0-9]{2}")
+
+sqry <- "
+SELECT Date, Size, AVG(Price)
+FROM AirPresto
+GROUP BY Date, Size;"
+AirPresto = sqldf::sqldf(sqry)
+write.csv(AirPresto, "AirPresto.csv")
+```
+
+```{r }
+YeezyYellow <- read.csv("YeezyYellow.csv")
+YeezyYellow = YeezyYellow[,-1]
+YeezyYellow$Date = str_extract(YeezyYellow$Date, "[0-9]{4}-[0-9]{2}-[0-9]{2}")
+
+sqry <- "
+SELECT Date, Size, AVG(Price)
+FROM YeezyYellow
+GROUP BY Date, Size;"
+YeezyYellow = sqldf::sqldf(sqry)
+write.csv(YeezyYellow, "YeezyYellow.csv")
+```
+
+
+```{r }
+p = adidasNMD[adidasNMD$Size == 10,]$`AVG(Price)`
+
+ts = ts(p, frequency = 24)
+sensor = auto.arima(ts)
+pred = forecast(sensor)$fitted
+plot(p, xlim = c(0,500), type = 'l')
+
 
 ```
 
 
+```{r }
+handle_rawdata = function(input) {
+  filename <- paste0(input, ".csv")
+  shoebrand <- str_extract(input, "[:alpha:]*[:space:]")
+  shoename <- str_replace(input, shoebrand, "")
+  shoebrand <- str_replace(shoebrand, " ", "")
+  table1 <- read.csv(filename)
+  table1 <- table1[,-1]
+  colnames(table1)[1] <- "Date"
+  colnames(table1)[2] <- "Size"
+  colnames(table1)[3] <- "Price"
+  table1$Name <- shoename
+  table1$Brand <- shoebrand
+  table1 <- separate(table1, "Date", c("Date", "Time"), sep = "T")
+  table1$Year = str_sub(table1$Date, 1, 4)
+  table1$Month = str_sub(table1$Date, 6, 7)
+  table1$Day = str_sub(table1$Date, 9, 10)
+  table1$Date <- as.Date(table1$Date)
+  table1$Number_Price <- as.numeric(table1$Price)
+  table1$Size <- as.factor(table1$Size)
+  filenameAfter <- paste0(input, "_after", ".csv")
+  write.csv(table1, filenameAfter)
+  
+  sqry <- "
+  SELECT Date, Size, AVG(Number_Price) as Price
+  FROM table1
+  GROUP BY Date, Size;"
+  table2 <- sqldf::sqldf(sqry)
+  return (table2)
+}
 
 
+```
+
+```{r}
+data_for_prediction = function(table1, size) {
+  if (!size %in% table1$Size) {
+    stop("This size is not available in this sneaker!")
+  }
+ 
+  table = table1[table1$Size == size,]
+  amount = nrow(table)
+  table$Size <- as.factor(table$Size)
+  table$Date <- as.Date(table$Date)
+  interval = as.numeric(table$Date[nrow(table)] - table$Date[1]) / (nrow(table) - 1)
+  fit1 <- auto.arima(ts(data = table$Price, frequency = 24))
+  predict1 <- forecast(fit1)$fitted
+  len = length(predict1)
+  table_predict = data.frame(Date = table$Date[len] + (1:len)*interval,
+                             Size = rep(table$Size[1], len), Price = predict1, condition = "Predict Price")
+  table$condition = rep("Real Data", amount)
+  table_combined = rbind(table, table_predict)
+  max = max(table_predict$Price)
+  min = min(table_predict$Price)
+  maxDate = table_predict$Date[table_predict$Price == max]
+  maxDate = maxDate[1]
+  minDate = table_predict$Date[table_predict$Price == min]
+  minDate = minDate[length(minDate)]
+  if (min == max) {
+    minMessage = "There is no maximum price and minimum price in our prediction since sources prices are too few to make the prediction."
+    g1 = ggplot(table_combined) + geom_line(aes(x = Date, y = Price)) + geom_line(aes(x = Date, y = Price, color = condition)) + theme(panel.grid =element_blank()) + ggtitle("Predicted Result") 
+    maxMessage = ""
+  } else {
+    minMessage = paste0("The minimum price of our prediction is ", round(min,2), ", which will be in ", minDate, ".")
+    maxMessage = paste0("The maximum price of our prediction is ", round(max,2), ", which will be in ", maxDate, ".")
+    g1 = ggplot(table_combined) + geom_line(aes(x = Date, y = Price)) + geom_line(aes(x = Date, y = Price, color = condition)) + theme(panel.grid =element_blank()) + ggtitle("Predicted Result") + annotate("text", x = maxDate, y = max, label = "Max Price") + annotate("text", x = minDate, y = min, label = "Min Price")
+  }
+  result = list(g1 = g1, minMessage = minMessage, maxMessage = maxMessage)
+  return (result)
+}
+```
+
+```{r }
+data_for_visualization2 = function(name1, name2) {
+  table1 = read.csv(paste0(name1, "_after.csv"))
+  table2 = read.csv(paste0(name2, "_after.csv"))
+  table_all = rbind(table1, table2)
+  g1 = ggplot(table_all) + geom_bar() + aes(x = Month, fill = Name) + facet_wrap(~Size) + theme(panel.grid =element_blank())
+  result = list(g1 = g1)
+  return (result)
+}
+```
+
+```{r }
+library(ggplot2); library(tidyr)
+
+data_for_visualization = function(table) {
+  g1 = ggplot(table) + aes(x = Date, y = Price) + facet_wrap(~Size) + geom_line() + theme(panel.grid =element_blank()) + ggtitle("Date versus Price")
+  result = list(g1 = g1)
+  return (result)
+}
+
+table = handle_rawdata("Nike Air Force 1")
+table = data_for_prediction(table, 0)
+table$g1
+```
