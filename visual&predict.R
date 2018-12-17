@@ -12,6 +12,7 @@ data_for_visualization2 = function(name1, name2) {
   table1 = read.csv(paste0(name1, "_after.csv"))
   table2 = read.csv(paste0(name2, "_after.csv"))
   table_all = rbind(table1, table2)
+  table_all$Month = as.factor(table_all$Month)
   g1 = ggplot(table_all) + geom_bar() + aes(x = Month, fill = Name) + facet_wrap(~Size) + theme(panel.grid =element_blank())
   result = list(g1 = g1)
   return (result)
