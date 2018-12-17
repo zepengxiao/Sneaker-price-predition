@@ -4,11 +4,11 @@ library(tidyr)
 
 rD = rsDriver()
 remDr = rD$client
-remDr$navigate("https://stockx.com/nike-court-flare-aj1-serena-williams-hyper-pink-w")
+remDr$navigate("https://stockx.com/air-jordan-1-retro-high-alternate-black-royal")
 
 button = remDr$findElement(using = "xpath", "//button[contains(text(),'Load More')]")
 
-replicate(500, {
+replicate(100, {
   button$clickElement()
   Sys.sleep(3)
 })
@@ -19,10 +19,10 @@ get_table = function(remDr) {
   readHTMLTable(doc)
 }
 
-table_Serena<-get_table(remDr)
+table_blackroyal<-get_table(remDr)
 
 rD$server$stop()
 
-table_Serena_after<-handle_table(table$`latest-sales-table`)
+table_blackroyal_after<-handle_table(table$`latest-sales-table`)
 
 nrow(table)

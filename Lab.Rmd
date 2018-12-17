@@ -88,45 +88,7 @@ rD$server$stop()
 ```
 
 ```{r handle table, warning=FALSE, message=FALSE, eval=TRUE}
-handle_table = function(table) {
-  #change to data.frame
-  frame = as.data.frame(table)
-  colnames(frame)[1] <- "Size"
-  colnames(frame)[2] <- "Sale_Price"
-  colnames(frame)[3] <- "Date"
-  colnames(frame)[4] <- "Time"
-  
-  #split variables
-  frame <- separate(frame, "Date", c("Weekday","Date", "Year"),sep = ", ")
-  frame <- separate(frame, "Date", c("Month", "Day"), sep = " ")
-  
-  #handle month name
-  frame$Month <- str_replace(frame$Month, "December", "12")
-  frame$Month <- str_replace(frame$Month, "November", "11")
-  frame$Month <- str_replace(frame$Month, "October", "10")
-  frame$Month <- str_replace(frame$Month, "September", "09")
-  frame$Month <- str_replace(frame$Month, "August", "08")
-  frame$Month <- str_replace(frame$Month, "July", "07")
-  frame$Month <- str_replace(frame$Month, "June", "06")
-  frame$Month <- str_replace(frame$Month, "May", "05")
-  frame$Month <- str_replace(frame$Month, "April", "04")
-  frame$Month <- str_replace(frame$Month, "March", "03")
-  frame$Month <- str_replace(frame$Month, "February", "02")
-  frame$Month <- str_replace(frame$Month, "January", "01")
-  
-  #Add Date Variable
-  frame$Date <- as.Date(paste0(frame$Year, "-", frame$Month, "-", frame$Day))
-  
-  #Add Number_Price Variable
-  frame$Number_Price <- as.numeric(str_replace(frame$Sale_Price, "\\$", ""))
-  
-  #more adjustments
-  as.factor(frame$Size)
-  
-  g1 = ggplot(frame) +aes(x = Date, y = Number_Price, color = Size) + geom_line() + ylab("Price") + ggtitle("Price versus Date") + theme(panel.grid =element_blank())
-  result = list(graph1 = g1, table = frame)
-  return (result)
-}
+
 ```
 
 
