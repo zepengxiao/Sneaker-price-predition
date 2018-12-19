@@ -84,7 +84,7 @@ In our project, we utilized a wide range of concepts and methods that we learned
 
 ## Familiarity with prior work:
 
-As for the detailed contents, we decided to do visualizations for historical prices, and then we discovered a related study [Scraping StockX: Adidas Yeezy Resell Analysis.](https://nycdatascience.com/blog/student-works/scraping-stockx-adidas-yeezy-resell-analysis/) which offered a lot of ideas pertaining to scrapping and data analysis for a certain type of sneaker shoes. 
+As for the detailed contents, we decided to do visualizations for historical prices, and then we discovered a related study [@ScrapingStockX:2016] which offered a lot of ideas pertaining to scrapping and data analysis for a certain type of sneaker shoes. 
 
 ## Novelty:
 
@@ -98,7 +98,7 @@ To ensure originality, we incorporated time-series analysis in order to give pre
 
 ## Data Science workflow:
 
-The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with shiny, and barplot/line graph visualizations of price information and prediction results with ggplot2. Our intended action is to perform time-series analysis (Hyndman and Athanasopoulos (n.d.)) through fitting ARIMA models (with built-in function arima) that is available in base R.
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with shiny, and barplot/line graph visualizations of price information and prediction results with ggplot2. Our intended action is to perform time-series analysis [@ARIMAModels] through fitting ARIMA models (with built-in function arima) that is available in base R.
 
 - Packages:
 
@@ -176,7 +176,15 @@ knitr::include_graphics("Search Live.jpg")
 
 ## Project timeline:
 
-Just want to check if my editing works
+- Nov.23-Nov.30 Finished code for `Search Live` functionality and trying to impement `prediction` and `comparison` functionality when doing search live
+- Dec.1-Dec.7 Finished designing models for `comparison` and `prediction`, and implenmented these models by R.
+- Dec.7 Finished the functionality that visualizing the results of models.
+- Dec.8-Dec.13 Met a new problem that our original way for scraping historical data of sales did not work because we were blocked by the *stockX* website. New way to scrape data need manually selecting url. 
+- Dec.8-Dec.13 Manually scraped several sets of data for several kinds of sneakers to show that our functonality really work. 
+- Dec.14-Dec.16 Finished creating `shiny app` by combining three parts of functionality  
+- Dec.16 Finished the code part of the project
+- Dec.17 Finished videl
+- Dec.18 Finished final report and peer review
 
 ## Breakdown of work:
 
