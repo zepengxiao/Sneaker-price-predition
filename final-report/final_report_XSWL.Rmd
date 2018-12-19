@@ -10,7 +10,7 @@ author:
   - Ziwei Liu (ziweil2)
   - Zepeng Xiao (zepengx2)
   - Yuquan Zheng (yzheng58)
-bibliography: bibliography.bib
+bibliography: bibliography_report.bib
 output: 
   bookdown::pdf_document2
 ---
@@ -104,23 +104,23 @@ The main body of this project can be broken into three parts: construction of da
 
 Packages that have been used include: 
 
-1. `ggplot2` Wickham (2016a) for visualizations
+1. `ggplot2` @ggplot2:2016 for visualizations
 
-1. `rvest` Wickham (2016b) for web scrapping
+1. `rvest` @rvest:2016 for web scrapping
 
-1. `tidyr` Wickham and Henry (2018) for data cleaning
+1. `tidyr` @tidyr:2018 for data cleaning
 
-1. `stringr` Wickham (2018) for string manipulation.
+1. `stringr` @stringr:2018 for string manipulation
 
-1. `shiny` Chang, Cheng, Allaire, Xie, & McPherson (2018) for creating shiny app
+1. `shiny` @shiny:2018 for creating shiny app
 
-1. `RSelenium` Harrison (2018) for doing search live
+1. `RSelenium` @RSelenium:2018 for doing search live
 
-1. `XML` Lang and the CRAN Team (2018) for doing assistant work of search live
+1. `XML` @XML:2018 for doing assistant work of search live
 
-1. `sqldf` Grothendieck (2017) for selecting desired data
+1. `sqldf` @sqldf:2017 for selecting desired data
 
-1. `forecast` Hyndman et al (2018) for predicting prices using arima model
+1. `forecast` @forecast:2018 for predicting prices using arima model
 
 - Code:
 
@@ -175,6 +175,8 @@ knitr::include_graphics("Search Live.jpg")
 # Feasibility
 
 ## Project timeline:
+
+Just want to check if my editing works
 
 ## Breakdown of work:
 
