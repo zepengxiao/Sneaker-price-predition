@@ -176,6 +176,8 @@ knitr::include_graphics("Search Live.jpg")
 
 We originally wanted to make the app do analysis in real-time, that is, we hope that we could have integrated the `Search Live` Panel with the `Prediction` panel, but it would be very time consuming to scrape all the data and then perform forecasting. So apparently, we can work more extensively with all the methods utilized in this project to make less compromises towards functionality. But overall we have realized all of our goals as stated in our proposal.
 
+## Project Timeline
+
 - Nov.23-Nov.30 Finished code for `Search Live` functionality and trying to impement `prediction` and `comparison` functionality when doing search live
 - Dec.1-Dec.7 Finished designing models for `comparison` and `prediction`, and implenmented these models by R.
 - Dec.7 Finished the functionality that visualizing the results of models.
