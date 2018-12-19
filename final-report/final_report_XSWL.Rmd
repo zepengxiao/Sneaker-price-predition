@@ -172,9 +172,10 @@ Search Live:
 knitr::include_graphics("Search Live.jpg")
 ```
 
-## Project timeline:
+## Potential improvement: 
 
-Just want to check if my editing works
+We originally wanted to make the app do analysis in real-time, that is, we hope that we could have integrated the `Search Live` Panel with the `Prediction` panel, but it would be very time consuming to scrape all the data and then perform forecasting. So apparently, we can work more extensively with all the methods utilized in this project to make less compromises towards functionality. But overall we have realized all of our goals as stated in our proposal.
+
 
 ## Breakdown of work:
 
