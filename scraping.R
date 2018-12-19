@@ -1,3 +1,5 @@
+library(RSelenium); library(XML); library(rvest)
+
 search = function(web, shoe, remDr) {
   remDr$navigate(web)
   wenElem = remDr$findElement(using = "id", "home-search")
