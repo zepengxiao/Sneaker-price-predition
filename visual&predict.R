@@ -1,5 +1,3 @@
-library(sqldf);library(ggplot2);library(forecast)
-
 #This is the visualization of the original data
 data_for_visualization = function(table) {
   g1 = ggplot(table) + aes(x = Date, y = Price) + facet_wrap(~Size) + geom_line() + theme(panel.grid =element_blank()) + ggtitle("Date versus Price")

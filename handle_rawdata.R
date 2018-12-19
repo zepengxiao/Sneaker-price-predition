@@ -1,5 +1,3 @@
-library(sqldf); library(stringr); library(tidyr)
-
 #This function is used for handle raw data, add variables, and extract value by SQL to make predictions.
 handle_rawdata = function(input) {
   filename <- paste0(input, ".csv")

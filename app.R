@@ -8,9 +8,7 @@
 #
 
 library(shiny)
-library(RSelenium); library(XML); library(rvest)
-library(sqldf); library(stringr); library(tidyr)
-library(ggplot2);library(forecast)
+
 
 shoe.name <- c("Adidas NMD",
                "Adidas Yeezy 700",

@@ -1,5 +1,3 @@
-library(httr)
-
 price = c()
 size = c()
 date = c()
