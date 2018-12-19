@@ -1,0 +1,207 @@
+---
+title: "Sneakerhead Gear -- Final Report"
+subtitle: "STAT 385 FA2018 - Team XSWL"
+abstract: |
+          | This project aims to design a shiny-powered app to address an underlying difficulty of many sneaker shoes lovers & collectors, which is to buy or trade sneakers at reasonable prices. The goal is to scrape real-time price information from StockX, one of the most popular stock market for sneakers, and produce visualizations as well as give predictions for the prices of popular items by incorporating statistical computing methods. The motivation behind this project is a shared experience among the group members about previous hardships involved with trading sneaker shoes, and a strong desire to work with web scrapping and to practice statistical methods with R. The expected gain is hence as stated above.
+          
+          
+date: "December 18, 2018"
+author:
+  - Ziwei Liu (ziweil2)
+  - Zepeng Xiao (zepengx2)
+  - Yuquan Zheng (yzheng58)
+bibliography: bibliography_report.bib
+output: 
+  bookdown::pdf_document2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r set-options, include = FALSE}
+# Sets default chunk options
+knitr::opts_chunk$set(
+  # Figures/Images will be centered
+  fig.align = "center", 
+  # Code will not be displayed unless `echo = TRUE` is set for a chunk
+  echo = FALSE,
+  # Messages are suppressed
+  message = FALSE,
+  # Warnings are suppressed
+  warning = FALSE
+)
+```
+
+```{r install-and-load-packages, include = FALSE}
+# All packages needed should be loaded in this chunk
+pkg_list = c('knitr', 'kableExtra', 'magrittr')
+
+# Determine what packages are NOT installed already.
+to_install_pkgs = pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+
+# Install the missing packages
+if(length(to_install_pkgs)) {
+  install.packages(to_install_pkgs, repos = "https://cloud.r-project.org")
+}
+
+# Load all packages
+sapply(pkg_list, require, character.only = TRUE)
+```
+
+<!-- Force a new page -->
+\newpage
+
+# Introduction
+
+## Problem statement(issue that has arisen):
+   
+In a world that the prices of sneakers change rapidly, it's always hard for sneaker buyers or sellers to make the deal at the best price. In this case, we intended to design a shiny app that can help users master the price variation of certain brands of shoes and also give predictions about the future prices according to the time trend. Beside, the price information that users collect on the internet by themselves may be hard to interpret so that our intention would also be presenting the information in a direct way. 
+
+## Motivation:
+
+The initial purpose of our project is quite realistic—to help sneaker lovers make better shopping decisions or selling decisions. We intended to achieve this purpose by providing sneaker lovers detailed information about the price variation and giving predictions about the future prices for certain shoes. What’s more, collecting information online by customer themselves may be time-consuming and searching results may be complicated and hard to interpret. In this case, we believe that by using R’s ggplot and shiny packages, we can present the price information in a simpler and more user-friendly way. 
+
+## Description of data:
+
+The data we have used in this project are all scrapped from the website StockX using web scrapping techniques, which is an online market with detailed information about the prices of sneakers in different time periods. To be more specific, in the prediction function, we downloaded seven groups of data. Each group of data indicates the price information for a certain shoe and includes 10+ variables and more than 500 observations. The observations are differentiated by different time periods they are in. The construction of data is an important part of the project. Below is a short demo of our data.
+
+```{r data demo, out.width = "300px", echo=FALSE}
+knitr::include_graphics("sampledata.jpg")
+```
+
+[General Source: StockX.com](https://stockx.com/)
+
+## Course connection: 
+
+In our project, we utilized a wide range of concepts and methods that we learned in the course. Firstly, we scrapped the price data from the StockX website. Secondly, we performed cleaning and merging for the data. Furthermore, we depended on R's statistical computing and data manipulation abilities to fit model for the prediction. Finally, we built the `Shiny` application and output visualizations.
+
+
+<!-- Force a new page -->
+\newpage
+
+# Related Work
+
+## Familiarity with prior work:
+
+As for the detailed contents, we decided to do visualizations for historical prices, and then we discovered a related study [Scraping StockX: Adidas Yeezy Resell Analysis.](https://nycdatascience.com/blog/student-works/scraping-stockx-adidas-yeezy-resell-analysis/) which offered a lot of ideas pertaining to scrapping and data analysis for a certain type of sneaker shoes. 
+
+## Novelty:
+
+To ensure originality, we incorporated time-series analysis in order to give prediction about shoes prices. There have been similar analysis project focused on forecasting stock prices, and we think our originality lies in bringing this idea to the market of sneaker shoes.
+
+
+<!-- Force a new page -->
+\newpage
+
+# Method
+
+## Data Science workflow:
+
+The main body of this project can be broken into three parts: construction of data by scrapping data from StockX, design and implementation of user interface and app server with shiny, and barplot/line graph visualizations of price information and prediction results with ggplot2. Our intended action is to perform time-series analysis (Hyndman and Athanasopoulos (n.d.)) through fitting ARIMA models (with built-in function arima) that is available in base R.
+
+- Packages:
+
+Packages that have been used include: 
+
+1. `ggplot2` @ggplot2:2016 for visualizations
+
+1. `rvest` @rvest:2016 for web scrapping
+
+1. `tidyr` @tidyr:2018 for data cleaning
+
+1. `stringr` @stringr:2018 for string manipulation
+
+1. `shiny` @shiny:2018 for creating shiny app
+
+1. `RSelenium` @RSelenium:2018 for doing search live
+
+1. `XML` @XML:2018 for doing assistant work of search live
+
+1. `sqldf` @sqldf:2017 for selecting desired data
+
+1. `forecast` @forecast:2018 for predicting prices using arima model
+
+- Code:
+
+The group wrote codes to first complete web scrapping, then potentially split or combined some of the variables for data cleaning. In order to fulfill the requirement for the number of attributes, there was also the need to merge data using SQL after we imported them. Next, to provide prediction of prices, we explored `auto.arima`, and the plotting of line graphs demonstrating price trends required using `ggplot2`. Finally, codes are written to build a shiny application. 
+
+- Logic:
+
+To properly drive this application, the user should first make sure connection to the internet, then run all R Scripts before opening the `app.R`. This is to supply all function calls that will happen in the server of the shiny app while operating. A further improvement arises here as we want to simply this process and write all functions into a package. In doing this, the user can directly run the `app.R` and have all the functionalities work appropriately. 
+
+- Important Notice:
+
+The `Search Live` functionality in our application seems not to work well on RStudio Cloud, in that the `RSelenium` would fail to evoke another Chrome session, but it would work perfectly well on our local RStudio, which we have utilized to implement this functionality. To use it locally, follow the below steps (On Windows 10):
+
+1. Copy the url of the project Repository.
+
+1. Open terminal, direct to the preferable path for placing the project.
+
+1. `git clone url`
+
+1. Type user ID and password
+
+1. Open up project.
+
+## Result
+
+As a result, we successfully designed the shiny app that have three different functions: predict,comparison and search live. In the prediction function panel, we are able to predict the future prices of a certain shoe among the default options and also predict  the time when the max or minimum price will be reached. To make it more clear for our users, we provides with the picture for the shoe, the prediction graph with max and minimum prices marked and the text description about the prediction. In the comparison panel, we are able to compare the sales of two different kinds of shoes using graphs to better understand the popularity of certain sneakers. Finally in the search live function we are able to get the latest information about prices and available sizes for the shoes we type in the searching bar.
+
+- Shiny UI:
+
+Prediction:
+
+```{r Prediction, out.width = "300px", echo=FALSE}
+knitr::include_graphics("Prediction.jpg")
+```
+
+Comparison:
+
+```{r Comparison, out.width = "300px", echo=FALSE}
+knitr::include_graphics("Comparison.jpg")
+```
+
+Search Live:
+
+```{r shiny demo, out.width = "300px", echo=FALSE}
+knitr::include_graphics("Search Live.jpg")
+```
+
+
+<!-- Force a new page -->
+\newpage
+
+# Feasibility
+
+## Project timeline:
+
+Just want to check if my editing works
+
+## Breakdown of work:
+
+We originally wanted to enable users to select any type of sneakers from any brands and give price predictions and visualizations, but then we realized to enable searching and then scrapping the corresponding data from different webpages requires a higher level of web scrapping technique, which takes time to master. We then decided that for this project, we would allow 5 to 10 pairs of shoes to choose from, and the current web scrapping techniques would still ensure that the information is real-time. Therefore we believe this project can be finished before the end of semester, as we can roughly send one week constructing data and building & testing UI and server, and another one to two week implementing time-series analysis and compile reports and video demo. To make the project goes, our group has decided to meet at least twice a week and take advantages of the office hours.
+
+## Contributors:
+
+As for tasks split, Ziwei Liu has undertaken the part of data construction through web scrapping techniques and data cleaning, and he is the main contributor to the `Search Live` functionality. 
+
+Zepeng Xiao has fitted ARIMA models on getting time-series analysis work and output visualizations. He is the main contributor to the `Prediction` functionality. 
+
+Yuquan Zheng has taken charge of visualizations in `Comparison` as well as design of the entire shiny app UI.
+
+Finally, all team members have been working closely with each other on getting each part work properly.
+
+<!-- Force a new page -->
+\newpage
+
+# Conclusion
+
+In summary, this project has successfully offered a gear for sneakers lovers to buy or sell their sneakers at desired prices, eased by visualization and powered by data scrapped from StockX. It resolves to a certain degree the uncertainty in market prices faced by sneaker traders when using StockX. The novelty arose from the attempt to apply time-series analysis to predict shoes prices.
+
+
+<!-- Force a new page for references -->
+\newpage
+
+# References
+
